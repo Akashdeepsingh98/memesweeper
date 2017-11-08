@@ -47,6 +47,11 @@ void Minefield::ClickReveal(const Vei2 & screenPos)
 	TileAt(ScreenToGrid(screenPos)).Reveal();
 }
 
+RectI Minefield::GetRect()
+{
+	return RectI(0,width*SpriteCodex::tileSize,0,height*SpriteCodex::tileSize);
+}
+
 Vei2 Minefield::Tile::GridToScreen(Vei2 & gridPos)const 
 {
 	return gridPos * SpriteCodex::tileSize;

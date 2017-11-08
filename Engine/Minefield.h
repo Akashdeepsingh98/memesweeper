@@ -34,4 +34,5 @@ public:
 	const Tile& TileAt(const Vei2& gridPos)const;
 	void Draw(Graphics& gfx)const;
 	void ClickReveal(const Vei2& screenPos);
+	RectI GetRect();
 };
