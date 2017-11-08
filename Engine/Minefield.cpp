@@ -25,7 +25,13 @@ Minefield::Tile & Minefield::TileAt(const Vei2 & gridPos)
 	return field[gridPos.y * width + gridPos.x];
 }
 
-void Minefield::Draw(Graphics & gfx)
+const Minefield::Tile & Minefield::TileAt(const Vei2 & gridPos) const
+{
+	// TODO: insert return statement here
+	return field[gridPos.y * width + gridPos.x];
+}
+
+void Minefield::Draw(Graphics & gfx)const
 {
 	for (Vei2 gridPos = { 0,0 }; gridPos.y < height; gridPos.y++)
 	{
@@ -36,9 +42,24 @@ void Minefield::Draw(Graphics & gfx)
 	}
 }
 
-Vei2 Minefield::Tile::GridToScreen(Vei2 & gridPos)
+void Minefield::ClickReveal(const Vei2 & screenPos)
+{
+	TileAt(ScreenToGrid(screenPos)).Reveal();
+}
+
+Vei2 Minefield::Tile::GridToScreen(Vei2 & gridPos)const 
 {
 	return gridPos * SpriteCodex::tileSize;
+}
+
+Vei2 Minefield::ScreenToGrid(const Vei2 & screenPos) const
+{
+	return screenPos/SpriteCodex::tileSize;
+}
+
+void Minefield::Tile::Reveal()
+{
+	state = State::Revealed;
 }
 
 bool Minefield::Tile::HasMine()
@@ -51,7 +72,7 @@ void Minefield::Tile::SpawnMine()
 	hasMine = true;
 }
 
-void Minefield::Tile::Draw(Graphics & gfx,Vei2& gridPos)
+void Minefield::Tile::Draw(Graphics & gfx,Vei2& gridPos)const
 {
 	Vei2 screenPos = GridToScreen(gridPos);
 	switch (state)

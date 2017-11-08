@@ -16,18 +16,22 @@ private:
 	private:
 		State state = State::Hidden;
 		bool hasMine = false;
-		Vei2 GridToScreen(Vei2& gridPos);
 	public:
+		void Reveal();
 		bool HasMine();
 		void SpawnMine();
-		void Draw(Graphics& gfx,Vei2& gridPos);
+		Vei2 GridToScreen(Vei2& gridPos)const;
+		void Draw(Graphics& gfx,Vei2& gridPos)const;
 	};
 private:
 	static constexpr int width = 20;
 	static constexpr int height = 16;
 	Tile field[ width * height ];
+	Vei2 ScreenToGrid(const Vei2& screenPos)const;
 public:
 	Minefield(int nMines);
 	Tile& TileAt(const Vei2& gridPos);
-	void Draw(Graphics& gfx);
+	const Tile& TileAt(const Vei2& gridPos)const;
+	void Draw(Graphics& gfx)const;
+	void ClickReveal(const Vei2& screenPos);
 };
