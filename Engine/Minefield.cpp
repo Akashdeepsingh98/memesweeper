@@ -15,8 +15,8 @@ Minefield::Minefield(int nMines)
 		do
 		{
 			gridPos = { xDist(rng) , yDist(rng) };
-			TileAt(gridPos).SpawnMine();
 		} while (TileAt(gridPos).HasMine());
+		TileAt(gridPos).SpawnMine();
 	}
 }
 
